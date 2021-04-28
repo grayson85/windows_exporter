@@ -109,6 +109,19 @@ Example service collector with a custom query.
 msiexec /i <path-to-msi-file> ENABLED_COLLECTORS=os,service --% EXTRA_FLAGS="--collector.service.services-where ""Name LIKE 'sql%'"""
 ```
 
+Example to enable TLS.
+```powershell
+msiexec /i <path-to-msi-file> EXTRA_FLAGS="--collectors.enabled "cpu,cs,logical_disk,os,system,net,service,memory" --web.config.file "<path-to-web.yml>\web.yml""
+```
+### Using a configuration file for web.yml
+```yaml
+tls_server_config:
+  # Certificate and key files for server to use to authenticate to client.
+  cert_file: <path-to-ssl.crt>\winexporter.crt
+  key_file: <path-to-ssl.key>\winexporter.key
+```
+
+
 On some older versions of Windows you may need to surround parameter values with double quotes to get the install command parsing properly:
 ```powershell
 msiexec /i C:\Users\Administrator\Downloads\windows_exporter.msi ENABLED_COLLECTORS="ad,iis,logon,memory,process,tcp,thermalzone" TEXTFILE_DIR="C:\custom_metrics\"
